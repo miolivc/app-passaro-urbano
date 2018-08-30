@@ -53,8 +53,15 @@ export class OfertasService {
         }
     ];
 
-    public getOfertas() : Array<Oferta> {
-        return this.ofertas;
+    // public getOfertas() : Array<Oferta> {
+    //     return this.ofertas;
+    // }
+
+    public getOfertas() : Promise<Oferta[]> {
+        return new Promise( ( resolve, reject ) => {
+            // Pode ser feito uma logica para chamar resolve ou reject
+            resolve( this.ofertas )
+        })
     }
 
 }
