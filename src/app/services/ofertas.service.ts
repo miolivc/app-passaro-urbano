@@ -1,7 +1,8 @@
-
+import { Oferta } from '../shared/oferta.model';
+ 
 export class OfertasService {
     
-    private ofertas : Array<any> = [
+    private ofertas : Oferta[] = [
         {
             id: 1,
             categoria: "restaurante",
@@ -52,8 +53,7 @@ export class OfertasService {
         }
     ];
 
-    public getOfertas() : Array<String> {
-        // let ofertas = ['Oferta 01', 'Oferta 02', 'Oferta 03'];
+    public getOfertas() : Array<Oferta> {
         return this.ofertas;
     }
 
