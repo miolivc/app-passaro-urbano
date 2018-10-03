@@ -2,7 +2,7 @@ import { Oferta } from '../shared/oferta.model';
  
 export class OfertasService {
     
-    constructor(private http : Http) {}
+    constructor(private http : Http) { }
     
     private ofertas : Oferta[] = [
         {
