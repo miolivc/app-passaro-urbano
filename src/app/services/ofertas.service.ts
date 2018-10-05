@@ -7,8 +7,9 @@ export class OfertasService {
     constructor(private http : Http) { }
   
     public getOfertas() : Promise<Oferta[]> {
-        this.http.get( "http://localhost:3000/ofertas" )
+        return this.http.get( "http://localhost:3000/ofertas" )
             .toPromise()
+            .then( ( answer : any ) => answer.json() )
     }
 
 }
