@@ -47,15 +47,14 @@
 		<div class="col">
 			<ul class="nav nav-tabs">
 				<li class="nav-item">
-					<a class="nav-link active" data-togle="tab" role="tab" href="#como-usar">Como usar?</a>
+					<a class="nav-link active" data-togle="tab" role="tab" routerLink="como-usar">Como usar?</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-togle="tab" role="tab" href="#onde-fica">Onde Fica?</a>
+					<a class="nav-link" data-togle="tab" role="tab" routerLink="onde-fica">Onde Fica?</a>
 				</li>
 			</ul>
 			<div class="tab-content">
-				<div id="como-usar" class="tab-pane fade show active" role="tabpanel">Texto Como Usar</div>
-				<div id="onde-fica" class="tab-pane fade" role="tabpanel">Texto Onde Fica</div>
+				<router-outlet></router-outlet>
 			</div>
 		</div>
 	</div>
