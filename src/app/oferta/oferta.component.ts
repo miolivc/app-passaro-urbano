@@ -20,7 +20,7 @@ export class OfertaComponent implements OnInit {
 
 	ngOnInit() {
 		let idOferta = this.route.snapshot.params["id"];
-
+		
 		this.ofertasService.getOfertasByID(idOferta)
 			.then((oferta: Oferta) => {
 				this.oferta = oferta;
