@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OfertasService } from '../services/ofertas.service';
 import { Oferta } from '../shared/oferta.model';
-import { Observable, interval, Observer } from 'rxjs';
+import { Observable, interval, Observer, Subscription } from 'rxjs';
 
 @Component({
 	selector: 'app-oferta',
@@ -10,7 +10,9 @@ import { Observable, interval, Observer } from 'rxjs';
 	styleUrls: ['./oferta.component.css'],
 	providers: [OfertasService]
 })
-export class OfertaComponent implements OnInit {
+export class OfertaComponent implements OnInit, OnDestroy {
+
+	private observableTesteSubscription : Subscription;
 
 	public oferta: Oferta;
 
@@ -41,7 +43,7 @@ export class OfertaComponent implements OnInit {
 		})
 
 		// Observador -> Este a cada mudança de estado dos nossos objetos observados realiza uma ação 
-		observableTeste.subscribe(
+		this.observableTesteSubscription = observableTeste.subscribe(
 			// O primeiro parametro recupera o evento de um novo dado alterado enviado com next()
 			(texto : string) => console.log(`Texto recuperado do objeto observador: ${texto}`),
 			// Segundo parametro captura erros ocorridos durante a execução
@@ -51,5 +53,10 @@ export class OfertaComponent implements OnInit {
 			() => console.log('O processamento do observable foi finalizado com sucesso!')
 		)
 	}
+
+	ngOnDestroy() {
+		// Retira a inscrição do observable  
+		this.observableTesteSubscription.unsubscribe();
+	} 
 
 }
