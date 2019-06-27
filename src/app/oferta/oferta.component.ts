@@ -34,11 +34,21 @@ export class OfertaComponent implements OnInit {
 		let observableTeste = Observable.create((observer : Observer<string>) => {
 			// next realiza uma nova emissão do evento
 			observer.next('Teste de Stream -> Esta é uma mudnaça no estado do objeto a ser observado');
+			// Envia um evento de erro 
+			observer.error('Foi gerado um erro ao tentar enviar o dado!');
+			// Complete -> Execução Finalizada com sucesso
+			observer.complete();
 		})
 
 		// Observador -> Este a cada mudança de estado dos nossos objetos observados realiza uma ação 
 		observableTeste.subscribe(
-			(texto : string) => console.log(`Texto recuperado do objeto observador: ${texto}`)
+			// O primeiro parametro recupera o evento de um novo dado alterado enviado com next()
+			(texto : string) => console.log(`Texto recuperado do objeto observador: ${texto}`),
+			// Segundo parametro captura erros ocorridos durante a execução
+			(erro : any) => console.log(erro),
+			// O ultimo parametro informa quando a ação foi completada - finalizada
+			//  não haverão mais entradas de eventos nesse observable
+			() => console.log('O processamento do observable foi finalizado com sucesso!')
 		)
 	}
 
