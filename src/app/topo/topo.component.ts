@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { OfertasService } from '../services/ofertas.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject , of } from 'rxjs';
 
 import { Oferta } from '../shared/oferta.model';
+import { switchMap, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-topo',
@@ -13,20 +14,27 @@ import { Oferta } from '../shared/oferta.model';
 export class TopoComponent implements OnInit {
 
   private ofertas : Observable<Oferta[]>;
+  private subjectPesquisa : Subject<string> = new Subject<string>();
 
   constructor(private ofertasService : OfertasService) { }
 
   ngOnInit() {
+    this.ofertas = this.subjectPesquisa.pipe(
+      debounceTime(1000),
+      switchMap((termo : string) => {
+        if (termo.trim() === "") {
+          return of([]);
+        }
+
+        return this.ofertasService.pesquisarOfertas(termo);
+      })
+    );
+
+    this.ofertas.subscribe((ofertas : Oferta[]) => console.log(ofertas));
   }
 
   public pesquisar(termoDaPesquisa : string) : void {
-    this.ofertas = this.ofertasService.pesquisarOfertas(termoDaPesquisa);
-
-    this.ofertas.subscribe(
-      (ofertas : Oferta[]) => console.log(ofertas),
-      (error : any) => console.log(`Status Error: ${error.Status}`),
-      () => console.log("Fluxo de Eventos Completo!")
-    )
+    this.subjectPesquisa.next(termoDaPesquisa);   
   }
 
 }

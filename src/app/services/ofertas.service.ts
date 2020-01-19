@@ -51,8 +51,8 @@ export class OfertasService {
     public pesquisarOfertas(termo : string) : Observable<Oferta[]> {
         return this.http.get(`${this.url}/ofertas/?descricao_oferta_like=${termo}`)
             .pipe(
-                map((response : Response) => response.json()),
-                retry(10)  // Efetua 10 tentativas antes de exibir o erro
+                retry(10),  // Efetua 10 tentativas antes de exibir o erro
+                map((response : Response) => response.json())
             )
     }
 
