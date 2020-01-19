@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Oferta } from '../shared/oferta.model';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, retry } from 'rxjs/operators';
 
 @Injectable()
 export class OfertasService {
@@ -50,7 +50,10 @@ export class OfertasService {
 
     public pesquisarOfertas(termo : string) : Observable<Oferta[]> {
         return this.http.get(`${this.url}/ofertas/?descricao_oferta_like=${termo}`)
-            .pipe(map((response : any) => response.json()))
+            .pipe(
+                map((response : any) => response.json()),
+                retry(10)  // Efetua 10 tentativas antes de exibir o erro
+            )
     }
 
 }
