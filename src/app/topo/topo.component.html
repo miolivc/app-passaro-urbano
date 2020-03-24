@@ -17,7 +17,7 @@
           placeholder="Pesquise por ofertas..." />
           <ul class="list-group" style="position: absolute;">
             <li class="list-group-item" *ngFor="let oferta of ofertasPesquisa">
-              {{ oferta.titulo }} 
+              {{ oferta.titulo | descricaoReduzida }} 
             </li>
           </ul>
         </div>
