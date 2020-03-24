@@ -11,10 +11,15 @@
           <!-- <input type="text" class="form-control" 
           (keyup)="pesquisar($event)"
           placeholder="Pesquise por ofertas..." /> -->
-          <input type="text" class="form-control" 
+          <input type="text" class="form-control"
           #termoDaPesquisa
           (keyup)="pesquisar(termoDaPesquisa.value)"
           placeholder="Pesquise por ofertas..." />
+          <ul class="list-group" style="position: absolute;">
+            <li class="list-group-item" *ngFor="let oferta of ofertasPesquisa">
+              {{ oferta.titulo }} 
+            </li>
+          </ul>
         </div>
       </div>
       <div class="col-md-2">
