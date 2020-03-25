@@ -11,13 +11,13 @@
           <!-- <input type="text" class="form-control" 
           (keyup)="pesquisar($event)"
           placeholder="Pesquise por ofertas..." /> -->
-          <input type="text" class="form-control"
-          #termoDaPesquisa
-          (keyup)="pesquisar(termoDaPesquisa.value)"
-          placeholder="Pesquise por ofertas..." />
-          <ul class="list-group" style="position: absolute;">
+          <input type="text" class="form-control" #termoDaPesquisa (keyup)="pesquisar(termoDaPesquisa.value)"
+            placeholder="Pesquise por ofertas..." />
+          <ul class="list-group" style="position: absolute; z-index: 999;">
             <li class="list-group-item" *ngFor="let oferta of ofertas | async">
-              {{ oferta.titulo | descricaoReduzida:15 }} 
+              <a  [routerLink]="['/oferta', oferta.id]" (click)="limparPesquisa();">  
+                {{ oferta.titulo | descricaoReduzida:15 }}
+              </a>
             </li>
           </ul>
         </div>
